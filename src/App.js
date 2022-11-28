@@ -1,24 +1,33 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+import StarterPage from './components/StarterPage';
+import SetCharacterPage from './components/SetCharacterPage';
 import './App.css';
 
+
 function App() {
+
+  const [starterPage, setStarterPage] = useState(true);
+  const [setCharacter, setSetCharacter]= useState(false);
+  const [inputVal, setInputVal] = useState("");
+
+  const newPageAppear = () => {
+    setStarterPage(false);
+    setSetCharacter(true);
+  }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {starterPage && 
+      <StarterPage
+        onChange={event =>setInputVal(event.target.value)}
+        onClick={newPageAppear}
+      />}
+      {setCharacter && <SetCharacterPage
+       name={inputVal}
+      />}
     </div>
+
   );
 }
 
